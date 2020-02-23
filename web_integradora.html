@@ -89,7 +89,63 @@ html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable,
             margin-right: 4px;
         }
         
+        #mivideo {
+            width: 720px;
+            background-color: rgb(255, 123, 0);
+            padding: auto;
+            margin: 100px 325px;
+            border: 2px solid black;
+            border-radius: 10px;
+            box-shadow: chartreuse 10px 10px 20px;
+            float: left;
+        }
+        nav{
+         margin: 5px 0;
+        }
+            #botones{
+             float: left;
+             width: 100px;
+            height: 20px;
+            }
+            #barra{
+                background-color: rgb(238, 218, 238);
+                width: 600px;
+                height: 16px;
+                border: 1px solid gray;
+                padding: 3px;
+                margin-left: 70px;
+            }
+
+            #progreso{
+                position: absolute;
+                width: 0px;
+                height: 16px;
+                background: rgba(0, 0, 150, 2);
+            }
+
+            #reproducir{
+                margin-left: 7px;
+                margin-top: 1px;
+            }
+            #subtitulo_video{
+                font: Verdana, Arial, Sans-serif;
+                font-size: 4em;
+                text-align: center;
+                text-shadow: darkgreen 5px 10px 14px;
+                border-radius: 15px;
+                margin: 10px auto;
+                color: rgb(15, 86, 107);
+                
+            }
+
+        
     </style>
+
+    <script>
+
+
+
+    </script>
 </head>
 <body>
     
@@ -103,10 +159,10 @@ html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable,
 
     
 
-    <section>
-        <h1 id="subtitulo_imagenes">La noche más hermosa</h1>
+    
+        
         <figure>
-
+        <h1 id="subtitulo_imagenes">La noche más hermosa</h1>
         <img id="foto1" src="C:/Users/franc/Desktop/programación/HTML5/web_integradora_curso_pildoras/imagenes/1.jpg"  width="250" height="250">
 
         <img id="foto2" src="C:/Users/franc/Desktop/programación/HTML5/web_integradora_curso_pildoras/imagenes/2.jpg"  width="250" height="250">
@@ -117,6 +173,35 @@ html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable,
 
         </figure>
         
+<section  id="mivideo">
+        <h2 id="subtitulo_video">The city of night</h2>
+
+
+        <media>
+        
+        <video id="thekillers" src="C:/Users/franc/Desktop/programación/HTML5/web_integradora_curso_pildoras/video/The Killers.mp4" controls width="720">The Killers - Here with me</video>
+
+        <nav>
+            <div id="botones">
+                <button type="button" id="reproducir">Play</button>
+            </div>
+
+            <div id="barra">
+            <div id="progreso"></div>
+            </div>
+
+
+
+
+
+
+
+        </nav>
+
+
+
+         </media>
+       
     </section>
     
 </body>
