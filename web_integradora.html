@@ -101,19 +101,30 @@ html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable,
         }
         nav{
          margin: 5px 0;
-        }
+        } 
             #botones{
              float: left;
-             width: 100px;
-            height: 20px;
+             width: 270px;
+            height: 16px;
+           
+            
             }
+            #volumen{
+                margin-top: 3px;
+                height: 8px;
+                width: 7em;
+                
+            }
+            
+           
             #barra{
                 background-color: rgb(238, 218, 238);
-                width: 600px;
+                width: 470px;
                 height: 16px;
                 border: 1px solid gray;
                 padding: 3px;
-                margin-left: 70px;
+                margin-left: 220px;
+                border-radius: 3px;
             }
 
             #progreso{
@@ -137,11 +148,86 @@ html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable,
                 color: rgb(15, 86, 107);
                 
             }
+            .recuperar{
+                clear: both;
+            }
 
         
     </style>
 
     <script>
+        let silenciar;
+        let video;
+        let reproducir;
+        let barra;
+        let progreso;
+        let volumen;
+        let bucle;
+        let maximo;
+        maximo = 470;
+
+        function iniciar(){
+            
+            video = document.getElementById("thekillers")
+            reproducir = document.getElementById("reproducir");
+            barra =  document.getElementById("barra");
+            progreso = document.getElementById("progreso");
+
+            silenciar = document.getElementById("mute")
+            volumen = document.getElementById("volumen");
+
+            reproducir.addEventListener("click", presionar, false);
+            barra.addEventListener("click", adelantando, false);
+            silenciar.addEventListener("click", sonido, false);
+            
+            volumen.addEventListener("change", nivel, false);
+
+        }
+
+        function presionar(){
+            if((video.paused==false) && (video.ended==false)){
+                video.pause();
+                reproducir.innerHTML="Play";
+            }else {
+                video.play();
+                reproducir.innerHTML="Pause";
+                bucle=setInterval(estado, 10);
+                
+            }
+        }
+
+        function estado(){
+            if(video.ended==false){
+                let total=parseInt(video.currentTime*maximo/video.duration);
+                progreso.style.width=total+"px";
+            }
+        }
+
+        function adelantando(posicion){
+             if ((video.paused==false) && (video.ended==false)){
+             let ratonX=posicion.pageX-barra.offsetLeft;
+             let nuevoTiempo=ratonX*video.duration/maximo;
+                video.currentTime=nuevoTiempo;
+                 progreso.style.width= ratonX + "px";
+                 }
+              }
+
+                    function sonido() {
+                if (silenciar.value == "Mute") {
+                    video.muted = true;
+                    silenciar.value = "Sonido";
+                } else {
+                    video.muted = false;
+                    silenciar.value = "Mute";
+                }
+            }
+
+            function nivel(){
+                video.volume = volumen.value;
+            }
+
+
+        window.addEventListener("load", iniciar, false);
 
 
 
@@ -179,16 +265,26 @@ html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable,
 
         <media>
         
-        <video id="thekillers" src="C:/Users/franc/Desktop/programación/HTML5/web_integradora_curso_pildoras/video/The Killers.mp4" controls width="720">The Killers - Here with me</video>
+        <video id="thekillers" src="C:/Users/franc/Desktop/programación/HTML5/web_integradora_curso_pildoras/video/The Killers.mp4" poster="C:/Users/franc/Desktop/programación/HTML5/web_integradora_curso_pildoras/imagenes/battle.jpg" width="720">The Killers - Here with me</video>
 
         <nav>
             <div id="botones">
                 <button type="button" id="reproducir">Play</button>
+                <input type="button" id="mute" value="Mute">
+                <input type="range" id="volumen" min="0" max="1" step="0.1" value="0.6">
+                
             </div>
 
             <div id="barra">
             <div id="progreso"></div>
             </div>
+            
+            
+
+            <div class="recuperar"></div>
+            
+           
+
 
 
 
