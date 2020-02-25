@@ -181,6 +181,7 @@ html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable,
             silenciar.addEventListener("click", sonido, false);
             
             volumen.addEventListener("change", nivel, false);
+            video.addEventListener("click", expandir, false);
 
         }
 
@@ -224,6 +225,13 @@ html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable,
 
             function nivel(){
                 video.volume = volumen.value;
+            }
+
+            function expandir(){
+                if (!document.webkitFullscreenElement) {
+                video.webkitRequestFullscreen();
+                video.play();
+                }
             }
 
 
