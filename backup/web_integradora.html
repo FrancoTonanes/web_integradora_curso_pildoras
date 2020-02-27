@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Web integradora - Curso Píldoras</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+    <style>
+
+html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable, form, fieldset, blockquote {
+    padding: 0;
+    margin: 0;
+    font-size: 100%;
+    font-weight: normal;
+   }
+   table { border-collapse: collapse; border-spacing: 0; }
+   td, th, caption { font-weight: normal; text-align: left; }
+   img, fieldset { border: 0; }
+   ol { padding-left: 1.4em; list-style: decimal; }
+   ul { padding-left: 1.4em; list-style:square; }
+   q:before, q:after { content:''; }
+/*rest*/
+
+        body{
+            background-color: rgb(53, 48, 48); color: rgb(255, 255, 255);
+            font-size: 62.5%;
+        }
+
+        #cabecera{
+            width: 500px;
+            background-color: rgb(223, 143, 78);
+            text-align: center;
+            margin: 15px auto;
+            margin-bottom: 50px;
+            padding: 15px;
+            border: darkorchid 5px solid;
+            border-radius: 15px;
+            box-shadow: dimgray 7px 10px 10px;
+        }
+
+        #titulo{
+            font: bold 35px Verdana, Sans-serif;
+            text-shadow: rgb(252, 172, 106) 10px 10px 10px;
+            color: lavenderblush;
+        }
+
+        figure{
+            float: left;
+            margin: auto;
+            margin-top: 20px;
+            margin-left: 150px;
+        }
+
+        figure img{
+            padding: 5px;
+            background-color: coral;
+            border-radius: 20px;
+            -webkit-transition: 0.2s ease-in-out 0.1s;
+            -webkit-transform: rotate3d(2);
+            box-shadow: rgb(252, 164, 0) 7px 7px 15px;
+        }
+        figure img:hover{
+            -webkit-transform: scale(1.2);
+        }
+
+        #subtitulo_imagenes{
+            
+            font: normal 2.4em Verdana, Arial, Sans-serif;
+            background: center (top, blueviolet, darkgoldenrod);
+            width: 35%;
+            border-radius: 15px;
+            margin: 25px auto;
+            text-align: center;
+            padding: 15px;
+            color: rgb(94, 255, 0);
+            box-shadow: orangered 5px 5px 10px;
+            text-shadow: yellowgreen 2px 3px 4px;
+            background-color: rgb(44, 49, 49);
+        }
+        #foto1{
+            margin-right: 4px;
+        }
+        #foto2{
+            margin-right: 4px;
+        }
+        #foto3{
+            margin-right: 4px;
+        }
+        
+        #mivideo {
+            width: 720px;
+            background-color: rgb(255, 123, 0);
+            padding: auto;
+            margin: 100px 325px;
+            border: 2px solid black;
+            border-radius: 10px;
+            box-shadow: chartreuse 10px 10px 20px;
+            float: left;
+        }
+        nav{
+         margin: 7px 0;
+        } 
+            #botones{
+             float: left;
+             width: 700px;
+            height: 16px;
+           
+            
+            }
+
+            
+            #volumen{
+                margin-top: 3px;
+                height: 8px;
+                width: 7em;
+                
+            }
+            
+           
+            #barra{
+                background-color: rgb(238, 218, 238);
+                width: 410px;
+                height: 16px;
+                border: 1px solid gray;
+                padding: 3px;
+                margin-left: 230px;
+                border-radius: 3px;
+                position: relative;
+            }
+
+            #progreso{
+                position: absolute;
+                width: 0px;
+                height: 16px;
+                background: rgba(0, 0, 150, 2);
+            }
+
+            #reproducir{
+                margin-left: 7px;
+                margin-top: 1px;
+                width: 60px;
+            }
+            #mute{
+                width: 60px;
+            }
+            #subtitulo_video{
+                font: Verdana, Arial, Sans-serif;
+                font-size: 4em;
+                text-align: center;
+                text-shadow: darkgreen 5px 10px 14px;
+                border-radius: 15px;
+                margin: 10px auto;
+                color: rgb(15, 86, 107);
+                
+            }
+             #fullscreem{
+                background-color: black;color: blanchedalmond;
+                margin-top: 0px;
+                margin-left: 425px;
+                width: 30px;
+                
+            } 
+            .recuperar{
+                clear: both;
+            }
+
+            #reproductor_audio{
+                width: 700px;
+                background-color: chocolate;
+                float: left;
+                height: 40px;
+                margin-left: 400px;
+                
+            }
+
+            #botones2{
+             float: left;
+             width: 700px;
+            height: 16px;
+            position: absolute;
+            margin-top: 50px;
+            }
+           
+
+        
+    </style>
+
+    <script>
+        let silenciar;
+        let video;
+        let reproducir;
+        let barra;
+        let progreso;
+        let volumen;
+        let bucle;
+        let maximo;
+        let fullscreem;
+        maximo = 410;
+
+        function iniciar(){
+            
+            video = document.getElementById("thekillers")
+            reproducir = document.getElementById("reproducir");
+            barra =  document.getElementById("barra");
+            progreso = document.getElementById("progreso");
+            fullscreem = document.getElementById("fullscreem");
+
+            silenciar = document.getElementById("mute")
+            volumen = document.getElementById("volumen");
+
+            reproducir.addEventListener("click", presionar, false);
+            barra.addEventListener("click", adelantando, false);
+            silenciar.addEventListener("click", sonido, false);
+            
+            volumen.addEventListener("change", nivel, false);
+            fullscreem.addEventListener("click", expandir, false);
+            video.addEventListener("dblclick", expandir, false);
+
+        }
+
+        function presionar(){
+            if((video.paused==false) && (video.ended==false)){
+                video.pause();
+                reproducir.innerHTML="Play";
+            }else {
+                video.play();
+                reproducir.innerHTML="Pause";
+                bucle=setInterval(estado, 10);
+                
+            }
+        }
+
+        function estado(){
+            if(video.ended==false){
+                let total=parseInt(video.currentTime*maximo/video.duration);
+                progreso.style.width=total+"px";
+            }
+        }
+
+        function adelantando(posicion){
+             if ((video.paused==false) && (video.ended==false)){
+             let ratonX=posicion.pageX-barra.offsetLeft;
+             let nuevoTiempo=ratonX*video.duration/maximo;
+                video.currentTime=nuevoTiempo;
+                 progreso.style.width= ratonX + "px";
+                 }
+              }
+
+                    function sonido() {
+                if (silenciar.value == "Mute") {
+                    video.muted = true;
+                    silenciar.value = "Sonido";
+                } else {
+                    video.muted = false;
+                    silenciar.value = "Mute";
+                }
+            }
+
+            function nivel(){
+                video.volume = volumen.value;
+            }
+
+            function expandir(){
+                if (!document.webkitFullscreenElement) {
+                video.webkitRequestFullscreen();
+                video.play();
+                reproducir.innerHTML="Pause";
+                }else{
+                video.pause();
+                reproducir.innerHTML="Play";
+                }
+            }
+
+
+        window.addEventListener("load", iniciar, false);
+
+
+
+    </script>
+</head>
+<body>
+    
+    <header name="cabecera" id="cabecera"> <span id="titulo">Élite Programing</span></header>
+    <aside>
+
+
+
+
+    </aside>
+
+    
+
+    
+        
+        <figure>
+        <h1 id="subtitulo_imagenes">La noche más hermosa</h1>
+        <img id="foto1" src="C:/Users/franc/Desktop/programación/HTML5/web_integradora_curso_pildoras/imagenes/1.jpg"  width="250" height="250">
+
+        <img id="foto2" src="C:/Users/franc/Desktop/programación/HTML5/web_integradora_curso_pildoras/imagenes/2.jpg"  width="250" height="250">
+
+        <img id="foto3" src="C:/Users/franc/Desktop/programación/HTML5/web_integradora_curso_pildoras/imagenes/3.jpg"  width="250" height="250">
+
+        <img id="foto4" src="C:/Users/franc/Desktop/programación/HTML5/web_integradora_curso_pildoras/imagenes/4.jpeg"  width="250" height="250">
+
+        </figure>
+        
+        <section  id="mivideo">
+        <h2 id="subtitulo_video">The city of night</h2>
+
+
+        <media>
+        
+        <video id="thekillers" src="C:/Users/franc/Desktop/programación/HTML5/web_integradora_curso_pildoras/video/The Killers.mp4" poster="C:/Users/franc/Desktop/programación/HTML5/web_integradora_curso_pildoras/imagenes/battle.jpg" width="720">The Killers - Here with me</video>
+        
+        <nav>
+            <div id="botones">
+                <button type="button" id="reproducir">Play</button>
+                <input type="button" id="mute" value="Mute">
+                <input type="range" id="volumen" min="0" max="1" step="0.1" value="0.5">
+                <input type="button" id="fullscreem"  value="#">
+                
+            </div>
+
+            <div id="barra">
+            <div id="progreso"></div>
+            
+            </div>
+        
+            <div class="recuperar"></div>
+            
+        </nav>
+
+        
+
+
+
+         </media>
+       
+    </section>
+
+    <section>
+        <audio src="C:/Users/franc/Desktop/programación/HTML5/web_integradora_curso_pildoras/audio/again.mp3"></audio>
+
+        <nav id="reproductor_audio"
+        
+            <div id="botones2">
+                <button type="button" id="reproducir">Play</button>
+                <input type="button" id="mute" value="Mute">
+                <input type="range" id="volumen" min="0" max="1" step="0.1" value="0.5">
+                
+            </div>
+
+            <div id="barra">
+                <div id="progreso"></div>
+                
+            </div>
+
+        </nav>
+
+    
+
+
+
+    </section>
+    
+</body>
+</html>

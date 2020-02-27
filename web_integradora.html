@@ -109,6 +109,8 @@ html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable,
            
             
             }
+
+            
             #volumen{
                 margin-top: 3px;
                 height: 8px;
@@ -164,10 +166,60 @@ html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable,
                 clear: both;
             }
 
+            #reproductor_audio{
+                width: 650px;
+                background-color: rgb(116, 70, 37);
+                float: left;
+                height: 35px;
+                margin-left: 370px;
+                border-radius: 7px;
+            }
+
+            #barra_audio{
+                background-color: rgb(238, 218, 238);
+                width: 410px;
+                height: 16px;
+                border: 1px solid gray;
+                padding: 3px;
+                margin-left: 230px;
+                border-radius: 5px;
+                margin-top: 5px;
+            }
+            #progreso_audio{
+                position: absolute;
+                width: 0px;
+                height: 16px;
+                background: rgba(0, 0, 150, 2);
+            }
+
+            #botones2{
+            float: left;
+            width: 300px;
+            height: 10px;
+            position: relative;
+            }
+
+            #volumen_audio{
+                height: 10px;
+                width: 100px;
+                margin-left: 3px;
+            }
+            #reproducir_audio{
+                margin-top: 7px;
+                margin-left: 10px;
+                width: 50px;
+            }
+            #mute_audio{
+                width: 55px;
+            }
+            
+           
+
         
     </style>
 
     <script>
+        //video
         let silenciar;
         let video;
         let reproducir;
@@ -178,25 +230,52 @@ html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable,
         let maximo;
         let fullscreem;
         maximo = 410;
+        //Audio
+        let audio;
+        let reproducir_audio;
+        let silenciar_audio;
+        let volumen_audio;
+        let barra_audio;
+        let progreso_audio;
+        let maximo_audio;
+        maximo_audio = 410;
+
+
 
         function iniciar(){
-            
+            //video
             video = document.getElementById("thekillers")
             reproducir = document.getElementById("reproducir");
             barra =  document.getElementById("barra");
             progreso = document.getElementById("progreso");
             fullscreem = document.getElementById("fullscreem");
+            //audio
+            audio = document.getElementById("again");
+            reproducir_audio = document.getElementById("reproducir_audio");
+            barra_audio = document.getElementById("barra_audio");
+            progreso_audio = document.getElementById("progreso_audio");
 
+            //video
             silenciar = document.getElementById("mute")
             volumen = document.getElementById("volumen");
+            //audio
+            silenciar_audio = document.getElementById("mute_audio");
+            volumen_audio = document.getElementById("volumen_audio");
 
+            //video
             reproducir.addEventListener("click", presionar, false);
             barra.addEventListener("click", adelantando, false);
-            silenciar.addEventListener("click", sonido, false);
-            
+            silenciar.addEventListener("click", sonido, false);           
             volumen.addEventListener("change", nivel, false);
             fullscreem.addEventListener("click", expandir, false);
             video.addEventListener("dblclick", expandir, false);
+            //audio
+            reproducir_audio.addEventListener("click", presionar_audio, false);
+            barra_audio.addEventListener("click", adelantando_audio, false);
+            silenciar_audio.addEventListener("click", sonido_audio, false);
+            volumen_audio.addEventListener("change", nivel_audio, false);
+
+
 
         }
 
@@ -228,15 +307,15 @@ html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable,
                  }
               }
 
-                    function sonido() {
-                if (silenciar.value == "Mute") {
-                    video.muted = true;
-                    silenciar.value = "Sonido";
-                } else {
-                    video.muted = false;
-                    silenciar.value = "Mute";
-                }
+        function sonido() {
+            if (silenciar.value == "Mute") {
+            video.muted = true;
+            silenciar.value = "Sonido";
+            } else {
+            video.muted = false;
+            silenciar.value = "Mute";
             }
+        }
 
             function nivel(){
                 video.volume = volumen.value;
@@ -252,6 +331,48 @@ html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable,
                 reproducir.innerHTML="Play";
                 }
             }
+
+            function presionar_audio(){
+                if((audio.paused==false) && (audio.ended==false)){
+                    audio.pause();
+                   reproducir_audio.innerHTML="Play";
+                }else{
+                    audio.play();
+                    reproducir_audio.innerHTML="Pause";
+                    bucle=setInterval(estado, 10);
+                }
+            }
+            function estado(){
+            if(audio.ended==false){
+                let total=parseInt(audio.currentTime*maximo/audio.duration);
+                progreso_audio.style.width=total+"px";
+                }
+            }
+            
+            function adelantando_audio(posicion){
+                if((audio.paused==false) && (audio.ended==false)){
+                    let ratonX = posicion.pageX - barra_audio.offsetLeft;
+                    let nuevoTiempo = ratonX * audio.duration / maximo_audio;
+                    audio.currentTime = nuevoTiempo;
+                    progreso_audio.style.width = ratonX + "px";
+                } 
+
+            }
+
+            function sonido_audio(){
+                if (silenciar_audio.value == "Mute"){
+                    audio.muted = true;
+                    silenciar_audio.value = "Sonido";
+                }else{
+                    audio.muted = false;
+                    silenciar_audio.value = "Mute";
+                }
+
+            }
+            function nivel_audio(){
+                audio.volume = volumen_audio.value;
+            }
+
 
 
         window.addEventListener("load", iniciar, false);
@@ -312,10 +433,37 @@ html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable,
             
         </nav>
 
+        
+
 
 
          </media>
        
+    </section>
+
+    <section>
+        <audio id="again" src="C:/Users/franc/Desktop/programación/HTML5/web_integradora_curso_pildoras/audio/again.mp3"></audio>
+
+        <nav id="reproductor_audio">
+        
+            <div id="botones2">
+                <button type="button" id="reproducir_audio">Play</button>
+                <input type="button" id="mute_audio" value="Mute">
+                <input type="range" id="volumen_audio" min="0" max="1" step="0.1" value="0.5">
+                
+            </div>
+
+            <div id="barra_audio">
+                <div id="progreso_audio"></div>
+                
+            </div>
+
+        </nav>
+    
+
+
+
+
     </section>
     
 </body>
