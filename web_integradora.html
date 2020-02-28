@@ -5,8 +5,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Web integradora - Curso Píldoras</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
+
     <style>
 
 html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable, form, fieldset, blockquote {
@@ -212,6 +211,30 @@ html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable,
             #mute_audio{
                 width: 55px;
             }
+
+            table{
+                width: 40%;
+                height: 350px;
+                float: left;
+                border: 10px solid rgb(78, 70, 64);
+                background-color: rgb(116, 70, 37);
+                font-size: 1.5em;
+                font: Verdana, Arial, Sans-serif;
+                text-align: center;
+                margin-left: 450px;
+                margin-top: 100px;
+                border-radius: 10px;
+
+                
+                
+            }
+            td{
+                padding: 20px;
+            }
+            span{
+                font-size: 25px;
+                text-align: center;
+            }
             
            
 
@@ -274,6 +297,7 @@ html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable,
             barra_audio.addEventListener("click", adelantando_audio, false);
             silenciar_audio.addEventListener("click", sonido_audio, false);
             volumen_audio.addEventListener("change", nivel_audio, false);
+            
 
 
 
@@ -372,12 +396,60 @@ html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable,
             function nivel_audio(){
                 audio.volume = volumen_audio.value;
             }
-
+            
 
 
         window.addEventListener("load", iniciar, false);
 
+  
 
+            function comenzar(){
+              let nombre=document.getElementById("nombre");
+              let apellido=document.getElementById("apellido");
+              let dni=document.getElementById("dni");
+              nombre.addEventListener("input", validar_nombre, false);
+              apellido.addEventListener("input", validar_apellido, false);
+              dni.addEventListener("input", validar_dni, false);
+              validar_nombre();
+              validar_apellido();
+              validar_dni();
+            }
+
+            function validar_nombre(){
+                if(nombre.value==""){
+                    nombre.setCustomValidity("Introduzca su nombre");
+                    nombre.style.background="#FFDDDD";
+                }else{
+                    nombre.setCustomValidity("");
+                    nombre.style.background="white";
+                    
+                }
+            }
+
+            function validar_apellido(){
+                if(apellido.value==""){
+                    apellido.setCustomValidity("Introduzca su apellido");
+                    apellido.style.background="#FFDDDD";
+                }else{
+                    apellido.setCustomValidity("");
+                    apellido.style.background=("white");
+                    
+                }
+            }
+
+
+            function validar_dni(){
+                if(dni.value==""){
+                    dni.setCustomValidity("Meta su dni papi");
+                    dni.style.background="#FFDDDD";
+                }else{
+                    dni.setCustomValidity("");
+                    dni.style.background=("white");
+                }
+            }
+
+
+         window.addEventListener("load", comenzar, false);
 
     </script>
 </head>
@@ -460,11 +532,44 @@ html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable,
 
         </nav>
     
+    </section>
+    <section>
+    <form name="formulario" method="GET">
+    <table>
+    <tr><td><span id="formularioStyle">Formulario de contacto</span></td></tr>
+    <tr>
+        <td>Nombre</td>
+        <td><input type="text" name="Nombre" id="nombre"></td>
+    </tr>
+    <tr>
+        <td>Apellido</td>
+        <td><input type="text" name="apellido" id="apellido"></td>
+    </tr>
+    <tr>
+        <td>Edad</td>
+        <td><input type="number" name="edad" id="edad" min="1" max="100"></td>
+    </tr>
+    <tr>
+        <td>DU N°</td>
+        <td><input type="number" name="dni" id="dni"></td>
+    </tr>
+    <tr>
+        <td>Fecha de Nacimiento</td>
+        <td><input type="date" name="naciemiento" id="naciemiento"></td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td><input type="email" name="email" id="email" required></td>
+    </tr>
 
+    <tr>
+        <td><input type="submit" name="enviar" id="enviar" value="Enviar Información"></td>
+    </tr>
+        
 
-
+    </table>
+    </form>
 
     </section>
-    
 </body>
 </html>
